@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace gymt_lift_service_proto
+namespace LiftService.Program
 {
     public class Program
     {

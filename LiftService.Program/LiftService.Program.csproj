@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>LiftService.Program</AssemblyName>
+    <RootNamespace>LiftService.Program</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="SimpleInjector" Version="4.5.1" />
+    <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc.Core" Version="4.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LiftService.Controller\LiftService.Controller.csproj" />
+    <ProjectReference Include="..\LiftService.Database\LiftService.Database.csproj" />
+    <ProjectReference Include="..\LiftService.Domain\LiftService.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
