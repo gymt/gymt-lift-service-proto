@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,12 +50,12 @@ namespace LiftService.Controller.Controllers
 
         // Not working properly getting a 500 Internal server error - TODO
         [HttpPost]
-        public async Task<ActionResult<Lift>> PostLiftById(Lift item)
+        public async Task<ActionResult<Lift>> PostLift(Lift lift)
         {
-            _context.Lifts.Add(item);
+            _context.Lifts.Add(lift);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(Lift), new { id = item.Id }, item);
+            return CreatedAtAction(nameof(GetLiftById), new { id = lift.Id }, lift);
         }
     }
 }
