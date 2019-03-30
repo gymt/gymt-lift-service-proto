@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -90,6 +90,8 @@ namespace LiftService.Program
             // container.Register<IUserService, UserService>(Lifestyle.Scoped);
 
             container.AutoCrossWireAspNetComponents(app);
+
+            container.Verify();
         }
         
     }
