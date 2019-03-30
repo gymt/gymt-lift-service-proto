@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using LiftService.Domain.Model;
 
 namespace LiftService.Controller.Controllers
 {
@@ -10,36 +12,50 @@ namespace LiftService.Controller.Controllers
     [ApiController]
     public class LiftController : ControllerBase
     {
-        // GET api/lift
+        private readonly LiftContext _context;
+
+        public LiftController(LiftContext context)
+        {
+            _context = context;
+
+            if (_context.Lifts.Count() == 0)
+            {
+                _context.Lifts.Add(new Lift { Name = "Bicep Curl" });
+                _context.Lifts.Add(new Lift { Name = "Hammer Curl" });
+                _context.Lifts.Add(new Lift { Name = "Reverse Curl" });
+                _context.Lifts.Add(new Lift { Name = "Bench Press" });
+                _context.Lifts.Add(new Lift { Name = "Incline Bench Press" });
+                _context.SaveChanges();
+            }
+        }
+
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult<IEnumerable<Lift>>> GetAllLifts()
         {
-            return new string[] { "value1", "value2" };
+            return await _context.Lifts.ToListAsync();
         }
 
-        // GET api/lift/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<ActionResult<Lift>> GetLiftById(long id)
         {
-            return "value";
+            var lift = await _context.Lifts.FindAsync(id);
+
+            if (lift == null)
+            {
+                return NotFound();
+            }
+
+            return lift;
         }
 
-        // POST api/lift
+        // Not working properly getting a 500 Internal server error - TODO
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Lift>> PostLiftById(Lift item)
         {
-        }
+            _context.Lifts.Add(item);
+            await _context.SaveChangesAsync();
 
-        // PUT api/lift/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/lift/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return CreatedAtAction(nameof(Lift), new { id = item.Id }, item);
         }
     }
 }
