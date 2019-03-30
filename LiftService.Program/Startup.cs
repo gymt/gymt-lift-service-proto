@@ -17,8 +17,6 @@ using SimpleInjector.Lifestyles;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using System.Reflection;
 
-using LiftService.Controller.Controllers;
-
 namespace LiftService.Program
 {
     public class Startup
@@ -40,7 +38,7 @@ namespace LiftService.Program
             builder.AddFormatterMappings();
             builder.AddJsonFormatters();
             builder.AddCors();
-            builder.AddApplicationPart(typeof(LiftController).GetTypeInfo().Assembly).AddControllersAsServices();
+            builder.AddApplicationPart(Assembly.Load("LiftService.Controller")).AddControllersAsServices();
             builder.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             IntegrateSimpleInjector(services);
