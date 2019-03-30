@@ -14,8 +14,10 @@ using Microsoft.Extensions.Options;
 
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
+using Microsoft.EntityFrameworkCore;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using System.Reflection;
+using LiftService.Domain.Model;
 
 using LiftService.Controller.Controllers;
 
@@ -42,6 +44,9 @@ namespace LiftService.Program
             builder.AddCors();
             builder.AddApplicationPart(typeof(LiftController).GetTypeInfo().Assembly).AddControllersAsServices();
             builder.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Register the database context
+            services.AddDbContext<LiftContext>(opt => opt.UseInMemoryDatabase("Lift"));
 
             IntegrateSimpleInjector(services);
         }
