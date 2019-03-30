@@ -44,7 +44,7 @@ namespace LiftService.Program
             builder.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Register the database context
-            services.AddDbContext<LiftContext>(opt => opt.UseInMemoryDatabase("Lift"));
+            services.AddDbContext<GymtContext>(opt => opt.UseInMemoryDatabase("Lift"));
 
             IntegrateSimpleInjector(services);
         }
@@ -88,6 +88,8 @@ namespace LiftService.Program
             // container.Register<IUserService, UserService>(Lifestyle.Scoped);
 
             container.AutoCrossWireAspNetComponents(app);
+
+            container.Verify();
         }
         
     }
