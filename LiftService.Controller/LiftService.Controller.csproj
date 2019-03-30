@@ -19,4 +19,7 @@
     <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc.Core" Version="4.5.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LiftService.Domain\LiftService.Domain.csproj" />
+  </ItemGroup>
 </Project>
