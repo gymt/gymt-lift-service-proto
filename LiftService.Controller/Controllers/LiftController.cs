@@ -12,33 +12,33 @@ namespace LiftService.Controller.Controllers
     [ApiController]
     public class LiftController : ControllerBase
     {
-        private readonly GymtContext _context;
+        private readonly GymtContext _db;
 
-        public LiftController(GymtContext context)
+        public LiftController(GymtContext db)
         {
-            _context = context;
+            _db = db;
 
-            if (_context.Lifts.Count() == 0)
+            if (_db.Lifts.Count() == 0)
             {
-                _context.Lifts.Add(new Lift { Name = "Bicep Curl" });
-                _context.Lifts.Add(new Lift { Name = "Hammer Curl" });
-                _context.Lifts.Add(new Lift { Name = "Reverse Curl" });
-                _context.Lifts.Add(new Lift { Name = "Bench Press" });
-                _context.Lifts.Add(new Lift { Name = "Incline Bench Press" });
-                _context.SaveChanges();
+                _db.Lifts.Add(new Lift { Name = "Bicep Curl" });
+                _db.Lifts.Add(new Lift { Name = "Hammer Curl" });
+                _db.Lifts.Add(new Lift { Name = "Reverse Curl" });
+                _db.Lifts.Add(new Lift { Name = "Bench Press" });
+                _db.Lifts.Add(new Lift { Name = "Incline Bench Press" });
+                _db.SaveChanges();
             }
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Lift>>> GetAllLifts()
         {
-            return await _context.Lifts.ToListAsync();
+            return await _db.Lifts.ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Lift>> GetLiftById(long id)
         {
-            var lift = await _context.Lifts.FindAsync(id);
+            var lift = await _db.Lifts.FindAsync(id);
 
             if (lift == null)
             {
@@ -48,12 +48,11 @@ namespace LiftService.Controller.Controllers
             return lift;
         }
 
-        // Not working properly getting a 500 Internal server error - TODO
         [HttpPost]
         public async Task<ActionResult<Lift>> PostLift(Lift lift)
         {
-            _context.Lifts.Add(lift);
-            await _context.SaveChangesAsync();
+            _db.Lifts.Add(lift);
+            await _db.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetLiftById), new { id = lift.Id }, lift);
         }
