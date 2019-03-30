@@ -12,9 +12,9 @@ namespace LiftService.Controller.Controllers
     [ApiController]
     public class LiftController : ControllerBase
     {
-        private readonly LiftContext _context;
+        private readonly GymtContext _context;
 
-        public LiftController(LiftContext context)
+        public LiftController(GymtContext context)
         {
             _context = context;
 
