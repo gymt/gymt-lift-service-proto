@@ -1,25 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-
+using Swashbuckle.AspNetCore.Swagger;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
-using Microsoft.EntityFrameworkCore;
 using SimpleInjector.Integration.AspNetCore.Mvc;
-using System.Reflection;
 using LiftService.Domain.Model;
 
-namespace LiftService.Program
+namespace LiftService.Api
 {
     public class Startup
     {
@@ -35,16 +28,23 @@ namespace LiftService.Program
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var builder = services.AddMvcCore();
-            builder.AddAuthorization();
-            builder.AddFormatterMappings();
-            builder.AddJsonFormatters();
-            builder.AddCors();
-            builder.AddApplicationPart(Assembly.Load("LiftService.Controller")).AddControllersAsServices();
-            builder.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services
+                .AddMvcCore()
+                .AddApiExplorer()
+                .AddAuthorization()
+                .AddFormatterMappings()
+                .AddJsonFormatters()
+                .AddCors()
+                .AddApplicationPart(typeof(LiftController).GetTypeInfo().Assembly).AddControllersAsServices()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            // Register the database context
             services.AddDbContext<GymtContext>(opt => opt.UseInMemoryDatabase("Lift"));
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = typeof(Startup).Namespace, Version = "v1" });
+            });
 
             IntegrateSimpleInjector(services);
         }
@@ -67,9 +67,21 @@ namespace LiftService.Program
         {
             InitializeContainer(app);
 
+            app.UseStaticFiles();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                // Enable middleware to serve generated Swagger as a JSON endpoint.
+                app.UseSwagger();
+
+                // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+                // specifying the Swagger JSON endpoint.
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                });
             }
             else
             {
@@ -87,6 +99,10 @@ namespace LiftService.Program
             // Add application services. For instance:
             // container.Register<IUserService, UserService>(Lifestyle.Scoped);
 
+            /*
+             * Cross-Wiring will enable SimpleInjector to inject the
+             * DbContext registered on the built-in IServiceCollection.
+             */
             container.AutoCrossWireAspNetComponents(app);
 
             container.Verify();
