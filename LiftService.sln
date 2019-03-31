@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiftService.Program", "LiftService.Program\LiftService.Program.csproj", "{DE722555-B3D7-441E-B5E7-61E57C01BD4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiftService.Api", "LiftService.Program\LiftService.Api.csproj", "{DE722555-B3D7-441E-B5E7-61E57C01BD4B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiftService.Controller", "LiftService.Controller\LiftService.Controller.csproj", "{1153DAA5-6959-4538-B313-90A96B198138}"
 EndProject
