@@ -11,8 +11,6 @@ using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using LiftService.Domain.Model;
-using LiftService.Controller.Controllers;
-
 
 namespace LiftService.Api
 {
@@ -39,7 +37,7 @@ namespace LiftService.Api
                 .AddCors()
                 .AddApplicationPart(typeof(LiftController).GetTypeInfo().Assembly).AddControllersAsServices()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            
+
             services.AddDbContext<GymtContext>(opt => opt.UseInMemoryDatabase("Lift"));
 
             // Register the Swagger generator, defining 1 or more Swagger documents
