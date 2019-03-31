@@ -1,0 +1,35 @@
+# References:
+# https://docs.docker.com/engine/examples/dotnetcore
+# https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/docker-application-development-process/docker-app-development-workflow
+# 
+
+FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+FROM microsoft/dotnet:2.1-sdk AS build
+WORKDIR /src
+
+# Copy csproj and restore as distinct layers for a Multi-stage build
+# Reference for the benefits of this:
+# https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/docker-application-development-process/docker-app-development-workflow#multi-stage-builds-in-dockerfile
+COPY ["LiftService.Program/LiftService.Program.csproj", "LiftService.Program/"]
+COPY ["LiftService.Database/LiftService.Database.csproj", "LiftService.Database/"]
+COPY ["LiftService.Domain/LiftService.Domain.csproj", "LiftService.Domain/"]
+COPY ["LiftService.Controller/LiftService.Controller.csproj", "LiftService.Controller/"]
+RUN dotnet restore "LiftService.Program/LiftService.Program.csproj"
+
+# Copy everything else and build
+COPY . .
+WORKDIR "/src/LiftService.Program"
+RUN dotnet build "LiftService.Program.csproj" -c Release -o /app
+
+FROM build AS publish
+RUN dotnet publish "LiftService.Program.csproj" -c Release -o /app
+
+# Build runtime image
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT ["dotnet", "LiftService.Program.dll"]

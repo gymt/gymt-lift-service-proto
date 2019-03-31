@@ -10,6 +10,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiftService.Database", "Lif
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiftService.Domain", "LiftService.Domain\LiftService.Domain.csproj", "{00C9FDF7-12CC-4E47-B118-D524D5BB837F}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E56D4654-CFCE-4684-AE53-D4AB081EB997}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{00C9FDF7-12CC-4E47-B118-D524D5BB837F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00C9FDF7-12CC-4E47-B118-D524D5BB837F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00C9FDF7-12CC-4E47-B118-D524D5BB837F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E56D4654-CFCE-4684-AE53-D4AB081EB997}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E56D4654-CFCE-4684-AE53-D4AB081EB997}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E56D4654-CFCE-4684-AE53-D4AB081EB997}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E56D4654-CFCE-4684-AE53-D4AB081EB997}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

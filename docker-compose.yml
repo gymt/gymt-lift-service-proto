@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  liftservice.program:
+    image: ${DOCKER_REGISTRY-}liftserviceprogram
+    build:
+      context: .
+      dockerfile: LiftService.Program/Dockerfile
