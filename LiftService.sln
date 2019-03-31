@@ -2,13 +2,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiftService.Api", "LiftService.Program\LiftService.Api.csproj", "{DE722555-B3D7-441E-B5E7-61E57C01BD4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiftService.Api", "LiftService.Api\LiftService.Api.csproj", "{DE722555-B3D7-441E-B5E7-61E57C01BD4B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiftService.Controller", "LiftService.Controller\LiftService.Controller.csproj", "{1153DAA5-6959-4538-B313-90A96B198138}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiftService.Database", "LiftService.Database\LiftService.Database.csproj", "{BF42E0FD-E0AC-45C8-AB47-A0B223BE0BFB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiftService.Domain", "LiftService.Domain\LiftService.Domain.csproj", "{00C9FDF7-12CC-4E47-B118-D524D5BB837F}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0E297CB9-7BD5-4792-8460-DA92D29E87F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{00C9FDF7-12CC-4E47-B118-D524D5BB837F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00C9FDF7-12CC-4E47-B118-D524D5BB837F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00C9FDF7-12CC-4E47-B118-D524D5BB837F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E297CB9-7BD5-4792-8460-DA92D29E87F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E297CB9-7BD5-4792-8460-DA92D29E87F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E297CB9-7BD5-4792-8460-DA92D29E87F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E297CB9-7BD5-4792-8460-DA92D29E87F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
