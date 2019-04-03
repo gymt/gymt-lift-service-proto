@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <AssemblyName>LiftService.Program</AssemblyName>
-    <RootNamespace>LiftService.Program</RootNamespace>
+    <AssemblyName>LiftService.Api</AssemblyName>
+    <RootNamespace>LiftService.Api</RootNamespace>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <UserSecretsId>e6ac4515-ca3e-44c3-8183-fa8ae64b1cff</UserSecretsId>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
