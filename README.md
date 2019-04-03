@@ -25,6 +25,12 @@ To run via CLI, open the project root in a terminal. Then use the following comm
 docker-compose up
 ```
 
+Docker Compose caches your built image, so if you have previously started the service application by CLI (which you will oft do during development) you may need to use:
+
+```
+docker-compose up --build
+```
+
 Navigate to `<docker ip>:<docker port>/swagger` to interact with the API.
 
 Stop the containers with:
