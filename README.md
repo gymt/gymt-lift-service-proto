@@ -2,9 +2,9 @@
 
 ## Dev Requirements
 
-TODO: update dotNet SDK link below with correct url for version 2.1
+TODO: update dotnet SDK link below with correct url for version 2.1
 
-1. You will need the [dotNet SDK](https://download.visualstudio.microsoft.com/download/pr/a4b4e61e-0905-4eb8-9d2c-9f5f390312e7/e1edac05922be70b51007739ed0db49e/dotnet-sdk-2.2.105-osx-gs-x64.pkg). This project is currently built on dotNet Core 2.1.
+1. You will need the [dotnet SDK](https://download.visualstudio.microsoft.com/download/pr/a4b4e61e-0905-4eb8-9d2c-9f5f390312e7/e1edac05922be70b51007739ed0db49e/dotnet-sdk-2.2.105-osx-gs-x64.pkg). This project is currently built on dotnet Core 2.1.
 2. Docker
     * You will need Docker for Windows, Docker for Mac, or the corresponding Docker daemon installed on your system.
 	* Docker should be in `linux` container mode. This is an option even on Docker for Windows.
