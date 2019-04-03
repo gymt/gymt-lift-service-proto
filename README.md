@@ -17,7 +17,18 @@ Visual Studio will automatically detect that the solution is set up to run via C
 
 ![Run in Visual Studio for Mac](readme/figure_1.png)
 
-If a browser is not automatically launched, navigate to `<docker ip>:<docker port>/swagger` to interact with the API.
+If a browser is not automatically launched, navigate to `<docker ip>:<docker port>/swagger` to interact with the API. As far as your application knows, it is listening on port 80. To find the port that is being exposed on your host for this container, run
+
+```
+docker ps -a
+```
+
+You will be able to see the container port exposed to your host.
+
+![Run in Visual Studio for Mac](readme/figure_3.png)
+
+In this example, the url to test your api is `localhost:32771/swagger`.
+
 
 ### CLI
 
