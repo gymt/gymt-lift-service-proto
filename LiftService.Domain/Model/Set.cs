@@ -4,9 +4,9 @@ using System.Text;
 
 namespace LiftService.Domain.Model
 {
-    public class LiftSet
+    public class Set
     {
-        public long Id { get; private set; }
+        public Guid Id { get; private set; }
         public int? NumberOfReps { get; set; }
         public float? Weight { get; set; }
     }

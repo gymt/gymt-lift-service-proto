@@ -38,13 +38,15 @@ namespace LiftService.Api
                 .AddApplicationPart(Assembly.Load("LiftService.Controller")).AddControllersAsServices()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddDbContext<GymtContext>(opt => opt.UseInMemoryDatabase("Lift"));
+            // services.AddDbContext<GymtContext>(opt => opt.UseInMemoryDatabase("Lift"));
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = typeof(Startup).Namespace, Version = "v1" });
             });
+
+            services.AddCognitoIdentity();
 
             IntegrateSimpleInjector(services);
         }
@@ -88,6 +90,7 @@ namespace LiftService.Api
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

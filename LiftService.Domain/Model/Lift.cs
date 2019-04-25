@@ -4,7 +4,8 @@ namespace LiftService.Domain.Model
 {
     public class Lift
     {
-        public long Id { get; private set; }
-        public string Name { get; set; }
+        public Guid Id { get; private set; }
+        public Guid WorkoutId { get; set; }
+        public Guid Sets { get; set; }
     }
 }

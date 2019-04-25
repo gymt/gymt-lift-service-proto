@@ -4,9 +4,10 @@ using System.Text;
 
 namespace LiftService.Domain.Model
 {
-    public class Muscle
+    public class Workout
     {
-        public long Id { get; private set; }
+        public Guid Id { get; private set; }
         public string Name { get; set; }
+        public List<Set> Sets { get; set; }
     }
 }

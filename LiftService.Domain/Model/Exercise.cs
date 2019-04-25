@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LiftService.Domain.Model
 {
     public class Exercise
     {
-        public long Id { get; private set; }
-        public string name { get; set; }
+        public Guid Id { get; private set; }
+        public string Name { get; set; }
+        public Guid MuscleGroupId { get; set; }
     }
 }
