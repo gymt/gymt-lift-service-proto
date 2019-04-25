@@ -36,7 +36,7 @@ namespace LiftService.Api
                 .AddJsonFormatters()
                 .AddCors()
                 .AddApplicationPart(Assembly.Load("LiftService.Controller")).AddControllersAsServices()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<GymtContext>(opt => opt.UseInMemoryDatabase("Lift"));
 

@@ -3,11 +3,11 @@
 # https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/docker-application-development-process/docker-app-development-workflow
 # 
 
-FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/dotnet:2.1-sdk AS publish
+FROM microsoft/dotnet:2.2-sdk AS publish
 WORKDIR /src
 COPY . .
 RUN dotnet restore /ignoreprojectextensions:.dcproj
