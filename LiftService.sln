@@ -12,7 +12,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiftService.Domain", "LiftS
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0E297CB9-7BD5-4792-8460-DA92D29E87F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService.Controller", "..\AuthService.Controller\AuthService.Controller.csproj", "{3D3A710F-312C-4706-B39F-BB2B76E49768}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService.Controller", "AuthService.Controller\AuthService.Controller.csproj", "{3D3A710F-312C-4706-B39F-BB2B76E49768}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService.Domain", "AuthService.Domain\AuthService.Domain.csproj", "{6A86357C-E09E-46CC-9A60-92A493F743E9}"
 EndProject

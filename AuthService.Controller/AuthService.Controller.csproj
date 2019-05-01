@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LiftService.Domain\LiftService.Domain.csproj" />
+    <ProjectReference Include="..\AuthService.Contract\AuthService.Contract.csproj" />
   </ItemGroup>
+
 </Project>
