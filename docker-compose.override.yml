@@ -4,5 +4,8 @@ services:
   liftservice.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - AWS_ACCESS_KEY_ID=xxxx
+      - AWS_SECRET_KEY=xxxx
     ports:
-      - "80"
+      - "80:80"
+      - "443:443"
