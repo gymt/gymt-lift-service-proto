@@ -1,16 +1,20 @@
-﻿using System.Reflection;
+using System.Reflection;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using SimpleInjector.Integration.AspNetCore.Mvc;
-using LiftService.Domain.Model;
+using AuthService.Controller.Services;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.IdentityModel.Logging;
 
 namespace LiftService.Api
 {
@@ -36,17 +40,42 @@ namespace LiftService.Api
                 .AddJsonFormatters()
                 .AddCors()
                 .AddApplicationPart(Assembly.Load("LiftService.Controller")).AddControllersAsServices()
+                .AddApplicationPart(Assembly.Load("AuthService.Controller")).AddControllersAsServices()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            // services.AddDbContext<GymtContext>(opt => opt.UseInMemoryDatabase("Lift"));
-
-            // Register the Swagger generator, defining 1 or more Swagger documents
+            
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = typeof(Startup).Namespace, Version = "v1" });
+                c.SwaggerDoc("v1.0", new Info { Title = typeof(Startup).Namespace, Version = "v1.0" });
+
+                c.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new ApiKeyScheme
+                {
+                    Description = "Please enter `Bearer <token>`",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                {
+                    { "Bearer", Enumerable.Empty<string>() },
+                });
             });
 
             services.AddCognitoIdentity();
+
+            services
+                .AddAuthentication(c =>
+                {
+                    c.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    c.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.Audience = Configuration.GetAWSCognitoClientOptions().UserPoolClientId;
+                    options.Authority = "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_zpNZcYNEl";
+                });
+
+            services.AddHealthChecks();
 
             IntegrateSimpleInjector(services);
         }
@@ -69,20 +98,12 @@ namespace LiftService.Api
         {
             InitializeContainer(app);
 
-            app.UseStaticFiles();
-
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-
-                // Enable middleware to serve generated Swagger as a JSON endpoint.
                 app.UseSwagger();
-
-                // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-                // specifying the Swagger JSON endpoint.
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                    c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "API v1.0");
                 });
             }
             else
@@ -90,7 +111,10 @@ namespace LiftService.Api
                 app.UseHsts();
             }
 
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
             app.UseAuthentication();
+            app.UseHealthChecks("/healthcheck");
             app.UseHttpsRedirection();
             app.UseMvc();
         }
@@ -100,10 +124,10 @@ namespace LiftService.Api
             container.RegisterMvcControllers(app);
 
             // Add application services. For instance:
-            // container.Register<IUserService, UserService>(Lifestyle.Scoped);
+            container.Register<IAuthService, AuthService.Domain.Services.AuthService>(Lifestyle.Scoped);
 
             /*
-             * Cross-Wiring will enable SimpleInjector to inject the
+             * Cross-Wiring will enable SimpleInjector to inject a
              * DbContext registered on the built-in IServiceCollection.
              */
             container.AutoCrossWireAspNetComponents(app);
